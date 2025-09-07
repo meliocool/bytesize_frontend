@@ -125,8 +125,18 @@ export default function Page() {
     }
   }
 
-  function doDelete(_id: string) {
-    setMsg("Delete is coming soon in backend.");
+  async function doDelete(id: string) {
+    try {
+      setBusy(true);
+      setMsg("Deleting…");
+      await api.delete(`/files/del/${id}`);
+      setFiles((prev) => prev.filter((f) => f.ID !== id));
+      setMsg("Deleted.");
+    } catch {
+      setMsg("Delete failed.");
+    } finally {
+      setBusy(false);
+    }
   }
 
   const columns = useMemo<ColumnDef<FileRow>[]>(
@@ -188,7 +198,6 @@ export default function Page() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  disabled
                   onClick={() => doDelete(row.original.ID)}
                   className="text-red-600 focus:text-red-600"
                 >
