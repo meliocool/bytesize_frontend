@@ -100,7 +100,6 @@ export function GridCard({ f, onDownload, onDelete }: GridCardProps) {
             size="sm"
             variant="outline"
             className="flex-1 h-8 text-red-600 border-red-200 hover:bg-red-50 hover:border-red-300"
-            disabled
             onClick={() => onDelete(f.ID)}
           >
             <Trash2 className="h-3.5 w-3.5 mr-1.5" />
